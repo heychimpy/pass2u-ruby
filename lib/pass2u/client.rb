@@ -15,9 +15,9 @@ module Pass2U
     # Create a pass for a given model id and barcode id
     #
     # @param model_id [String] ID of the model used for the pass
-    # @param barcode_id [String] the id of the barcode used for the pass
+    # @param barcode_id [String] ID of the barcode used for the pass
     # @param options [Hash] Optional parameters to override model defaults
-    # @return [Hash] the response from the Pass2u API
+    # @return [Hash] Response from the Pass2u API
     def create_pass(model_id, barcode_id, options = {})
       self.class.post(
         "/models/#{model_id}/passes", {
@@ -37,7 +37,7 @@ module Pass2U
       }}.merge(options)
     end
 
-    # Prepare the headers of the HTTP requests
+    # Set the headers of the HTTP requests
     def headers
       {
         'x-api-key' => @api_key,
