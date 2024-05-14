@@ -2,21 +2,11 @@ PATH
   remote: .
   specs:
     pass2u-ruby (0.0.1)
-      httparty (~> 0.22)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    bigdecimal (3.1.8)
-    csv (3.3.0)
     diff-lcs (1.5.1)
-    httparty (0.22.0)
-      csv
-      mini_mime (>= 1.0.0)
-      multi_xml (>= 0.5.2)
-    mini_mime (1.1.5)
-    multi_xml (0.7.1)
-      bigdecimal (~> 3.1)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
