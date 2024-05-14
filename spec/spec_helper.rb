@@ -9,6 +9,7 @@ require_relative '../lib/pass2u/client'
 Bundler.setup
 
 RSpec.configure do |config|
-  config.color = true
-  config.formatter = :documentation
+  config.expect_with :rspec do |conf|
+    conf.syntax = :expect
+  end
 end
