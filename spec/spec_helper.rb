@@ -4,6 +4,7 @@ require 'pass2u'
 require 'bundler/setup'
 
 require_relative '../lib/pass2u/client'
+require_relative '../lib/pass2u/error'
 
 Bundler.setup
 
