@@ -16,20 +16,66 @@ module Pass2U
     # @param options [Hash] Optional parameters to override model defaults
     # @return [Hash] Response from the Pass2u API
     def create_pass(model_id, barcode_id, options = {})
-      uri = URI.parse("#{@base_uri}/models/#{model_id}/passes")
+      uri = client_request_uri(model_id)
+      req = pass_creation_request(uri, barcode_id, options)
+      response = make_request(uri, req)
 
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true if uri.scheme == 'https'
+      parse_response(response)
 
-      request = Net::HTTP::Post.new(uri.request_uri, headers)
-      request.body = body_content(barcode_id, options).to_json
-
-      resp = http.request(request)
-
-      JSON.parse(resp.body)
+    rescue Pass2U::ApiResponseError => ex
+      raise ApiResponseError.new(
+        "API responded with an error: #{ex.original_error.message}",
+        ex
+      )
+    rescue => ex
+      raise ApiConnectionError.new(
+        "Failed to connect to the API: #{ex.message}",
+        ex
+      )
     end
 
     private
+
+    # Build the URI for the API request
+    def client_request_uri(model_id)
+      URI.parse("#{@base_uri}/models/#{model_id}/passes")
+    end
+
+    # Build the HTTP request
+    def pass_creation_request(uri, barcode_id, options)
+      request = Net::HTTP::Post.new(uri.request_uri, headers)
+      request.body = body_content(barcode_id, options).to_json
+      request
+    end
+
+    # Make the HTTP request
+    def make_request(uri, request)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true if uri.scheme == 'https'
+      http.request(request)
+    end
+
+    # Parse the response and handle errors
+    def parse_response(response)
+      if response.code.to_i != 200
+        error_message = parse_error_message(response)
+        raise Pass2U::ApiResponseError.new(
+          "Unexpected response status: #{response.code},"\
+          " message: #{error_message}",
+          response
+        )
+      end
+      JSON.parse(response.body)
+    end
+
+    # Parse error message from the response
+    def parse_error_message(response)
+      begin
+        JSON.parse(response.body)['errorMessage'] || response.body
+      rescue JSON::ParserError
+        response.body
+      end
+    end
 
     # Prepare the content of the request body
     def body_content(barcode_id, options = {})
