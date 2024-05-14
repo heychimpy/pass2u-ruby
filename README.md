@@ -46,7 +46,7 @@ client = Pass2U::Client.new
 
 Creating a Pass
 
-Use the `create_pass` method to create a new pass. You need to provide the model ID and barcode ID, along with any optional parameters.
+Use the create_pass method to create a new pass. You need to provide the model ID and barcode ID, along with any optional parameters.
 
 Refer to the Pass2U [docs](https://www.pass2u.net/documentation) for a complete list of optional parameters.
 
@@ -58,9 +58,6 @@ options = { 'option_key' => 'option_value' }
 response = client.create_pass(model_id, barcode_id, options)
 
 # optional parameters override parameters specified in the model
-
-# Handle the response
-puts response
 ```
 
 Response example
