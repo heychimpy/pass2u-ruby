@@ -1,5 +1,8 @@
 # pass2u-ruby
 
+[![Continuous Integration](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml)
+
+
 A Ruby interface for the Pass2U API, allowing the management of digital passes.
 
 - [Installation](#installation)
