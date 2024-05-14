@@ -57,7 +57,7 @@ module Pass2U
 
     # Parse the response and handle errors
     def parse_response(response)
-      if response.code.to_i != 200
+      if response.code.to_i >= 300
         error_message = parse_error_message(response)
         raise Pass2U::ApiResponseError.new(
           "Unexpected response status: #{response.code},"\
