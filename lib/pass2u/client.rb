@@ -1,14 +1,11 @@
 require 'json'
-require 'httparty'
-
+require 'net/http'
 
 module Pass2U
   class Client
 
-    include HTTParty
-
     def initialize
-      self.class.base_uri Pass2U.configuration.base_uri
+      @base_uri = Pass2U.configuration.base_uri
       @api_key = Pass2U.configuration.api_key
     end
 
@@ -19,12 +16,17 @@ module Pass2U
     # @param options [Hash] Optional parameters to override model defaults
     # @return [Hash] Response from the Pass2u API
     def create_pass(model_id, barcode_id, options = {})
-      self.class.post(
-        "/models/#{model_id}/passes", {
-          :headers => headers,
-          :body => body_content(barcode_id, options).to_json
-        }
-      )
+      uri = URI.parse("#{@base_uri}/models/#{model_id}/passes")
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true if uri.scheme == 'https'
+
+      request = Net::HTTP::Post.new(uri.request_uri, headers)
+      request.body = body_content(barcode_id, options).to_json
+
+      resp = http.request(request)
+
+      JSON.parse(resp.body)
     end
 
     private

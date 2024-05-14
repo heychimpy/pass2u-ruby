@@ -1,68 +1,67 @@
-# spec/pass2u/client_spec.rb
 require 'spec_helper'
+require 'pass2u'
+require 'net/http'
 
-describe Pass2U::Client do
+RSpec.describe Pass2U::Client do
 
   let(:api_key) { '123456789' }
-  let(:client) { Pass2U::Client.new } 
+  let(:base_uri) { 'https://api.pass2u.net/v2' }
+  let(:model_id) { '123' }
+  let(:barcode_id) { '456' }
 
-  describe "#create_pass" do
+  let(:response_body) { { 'passId' => '789' }.to_json }
+  let(:parsed_response) { JSON.parse(response_body) }
+  let(:response) { instance_double(Net::HTTPResponse, body: response_body) }
 
-    let(:model_id) { '123' }
-    let(:barcode_id) { '456' }
+  let(:http) { instance_double(Net::HTTP) }
+  let(:client) { described_class.new }
 
-    let(:options) do 
-      { expirationDate: '2024-12-31T23:00:15+02:00' } 
+  before do
+    Pass2U.configure do |config|
+      config.api_key = api_key
+      config.base_uri = base_uri
     end
+  end
 
-    let(:expected_body) do
-      {
-        barcode: {
-          message: barcode_id,
-          altText: barcode_id
-        },
-        expirationDate: '2024-12-31T23:00:15+02:00'
-      }.to_json
-    end
-    
-    let(:response) do 
-      double(
-        "response", 
-        body: { 'passId' => '789' }.to_json, 
-        success?: true
-      ) 
-    end
+  describe '#create_pass' do
+    it 'sends a POST request to create a pass' do
+      expected_body = { 
+        'barcode' => { 
+          'message' => barcode_id, 
+          'altText' => barcode_id 
+        } 
+      }
 
-    before do
-      allow(Pass2U).to receive(:configuration).and_return(
-        double(
-          "configuration", 
-          base_uri: 'https://api.pass2u.net/v2', 
-          api_key: api_key
-        )
-      )   
-    end
+      uri = URI.parse("#{base_uri}/models/#{model_id}/passes")
+      headers = {
+        'x-api-key' => api_key,
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+      }
 
-    it "sends a POST request to create a pass" do
-      expect(client.class).to receive(:post).with(
-        "/models/#{model_id}/passes",
-        hash_including(
-        headers: {
-          'x-api-key' => api_key,
-          'Accept' => 'application/json',
-          'Content-Type' => 'application/json'
-        },
-        body: expected_body)
-      ).and_return(response)
+      request = Net::HTTP::Post.new(uri.request_uri, headers)
+      request.body = expected_body.merge(
+        'expirationDate' => '2024-12-31T23:00:15+02:00')
+        .to_json
 
-      client.create_pass(model_id, barcode_id, options)
-    end
+      allow(Net::HTTP).to receive(:new)
+        .with(uri.host, uri.port)
+        .and_return(http)
 
-    it 'returns the response' do
-      allow(client.class).to receive(:post).and_return(response)
-      result = client.create_pass(model_id, barcode_id, options)
+      allow(http).to receive(:use_ssl=)
+        .with(true)
 
-      expect(result.body).to eq(response.body)
+      allow(http).to receive(:request)
+        .with(instance_of(Net::HTTP::Post))
+        .and_return(response)
+
+      result = client.create_pass(
+        model_id, 
+        barcode_id, 
+        { 'expirationDate' => '2024-12-31T23:00:15+02:00' }
+      )
+
+      expect(result).to eq(parsed_response)
     end
   end
 end
