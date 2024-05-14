@@ -10,8 +10,8 @@ RSpec.describe Pass2U::Client do
   let(:barcode_id) { '456' }
 
   let(:response_body) { { 'passId' => '789' }.to_json }
+  let(:response_code) { 200 }
   let(:parsed_response) { JSON.parse(response_body) }
-  let(:response) { instance_double(Net::HTTPResponse, body: response_body) }
 
   let(:http) { instance_double(Net::HTTP) }
   let(:client) { described_class.new }
@@ -24,7 +24,8 @@ RSpec.describe Pass2U::Client do
   end
 
   describe '#create_pass' do
-    it 'sends a POST request to create a pass' do
+
+    before do
       expected_body = { 
         'barcode' => { 
           'message' => barcode_id, 
@@ -47,21 +48,97 @@ RSpec.describe Pass2U::Client do
       allow(Net::HTTP).to receive(:new)
         .with(uri.host, uri.port)
         .and_return(http)
+    end
 
-      allow(http).to receive(:use_ssl=)
+    context 'Succeesful request' do
+
+      let(:response_code) {  200 }
+
+      before do
+        response = instance_double(
+          Net::HTTPResponse,
+          body: response_body,
+          code: response_code
+        )
+
+        allow(http).to receive(:use_ssl=)
         .with(true)
 
-      allow(http).to receive(:request)
-        .with(instance_of(Net::HTTP::Post))
-        .and_return(response)
+        allow(http).to receive(:request)
+          .with(instance_of(Net::HTTP::Post))
+          .and_return(response)
+      end
 
-      result = client.create_pass(
-        model_id, 
-        barcode_id, 
-        { 'expirationDate' => '2024-12-31T23:00:15+02:00' }
-      )
+      it 'sends a POST request to create a pass' do
 
-      expect(result).to eq(parsed_response)
+        result = client.create_pass(
+          model_id,
+          barcode_id,
+          { 'expirationDate' => '2024-12-31T23:00:15+02:00' }
+        )
+
+        expect(result).to eq(parsed_response)
+      end
+    end
+
+    context 'Failed request' do
+
+      context 'API response error' do
+
+        let(:response_code) {  400 }
+        let(:response_body) { { 'errorMessage' => 'Bad Request' }.to_json }
+
+        before do
+          response = instance_double(
+            Net::HTTPResponse,
+            body: response_body,
+            code: response_code,
+            message: 'original error message'
+
+          )
+
+          allow(http).to receive(:use_ssl=)
+            .with(true)
+
+          allow(http).to receive(:request)
+            .with(instance_of(Net::HTTP::Post))
+            .and_return(response)
+        end
+
+        it 'raises a custom API response error' do
+          expect {
+            client.create_pass(
+              model_id, barcode_id,
+              'expirationDate' => '2024-12-31T23:00:15+02:00'
+            )
+          }.to raise_error(
+            Pass2U::ApiResponseError,
+            "API responded with an error: original error message"
+          )
+        end
+      end
+
+      context 'API connection error' do
+
+        before do
+          response = instance_double(
+            Net::HTTPResponse,
+            body: response_body,
+            code: response_code
+          )
+
+          allow(http).to receive(:use_ssl=).and_raise
+        end
+
+        it 'raises a custom API connection error' do
+          expect {
+            client.create_pass(
+              model_id, barcode_id,
+              'expirationDate' => '2024-12-31T23:00:15+02:00'
+            )
+          }.to raise_error(Pass2U::ApiConnectionError)
+        end
+      end
     end
   end
 end
