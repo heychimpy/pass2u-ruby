@@ -1,5 +1,4 @@
 require 'rspec'
-require 'httparty'
 require 'json'
 require 'pass2u'
 require 'bundler/setup'
