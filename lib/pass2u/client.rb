@@ -1,5 +1,6 @@
 require 'json'
 require 'net/http'
+require 'pass2u/error'
 
 module Pass2u
   class Client
