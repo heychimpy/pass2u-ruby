@@ -3,7 +3,7 @@
 [![Continuous Integration](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml)
 
 
-A Ruby interface for the Pass2U API, allowing the management of digital passes.
+A Ruby interface for the Pass2u API, allowing the management of digital passes.
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -31,8 +31,8 @@ bundle
 Before using the gem, configure it with your API key and the base uri:
 
 ```ruby
-Pass2U.configure do |config|
-  # The API key provided by Pass2U
+Pass2u.configure do |config|
+  # The API key provided by Pass2u
   config.api_key = 'your_pass2u_api_key_here'
   # The base URI for all API calls
   config.base_uri = 'https://api.pass2u.net/v2'  # default value
@@ -44,14 +44,14 @@ end
 Creating a Client
 
 ```ruby
-client = Pass2U::Client.new
+client = Pass2u::Client.new
 ```
 
 Creating a Pass
 
 Use the create_pass method to create a new pass. You need to provide the model ID and barcode ID, along with any optional parameters.
 
-Refer to the Pass2U [docs](https://www.pass2u.net/documentation) for a complete list of optional parameters.
+Refer to the Pass2u [docs](https://www.pass2u.net/documentation) for a complete list of optional parameters.
 
 ```ruby
 model_id = 'your_model_id_here'

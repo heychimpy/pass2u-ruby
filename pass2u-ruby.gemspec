@@ -4,7 +4,7 @@ require_relative 'lib/pass2u/version'
 
 Gem::Specification.new do |s|
   s.name = 'pass2u-ruby'
-  s.version = Pass2U::VERSION
+  s.version = Pass2u::VERSION
   s.license = 'MIT'
 
   s.authors = ["Alexis Dumortier"]

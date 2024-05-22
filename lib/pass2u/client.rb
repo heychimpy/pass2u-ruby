@@ -1,12 +1,12 @@
 require 'json'
 require 'net/http'
 
-module Pass2U
+module Pass2u
   class Client
 
     def initialize
-      @base_uri = Pass2U.configuration.base_uri
-      @api_key = Pass2U.configuration.api_key
+      @base_uri = Pass2u.configuration.base_uri
+      @api_key = Pass2u.configuration.api_key
     end
 
     # Create a pass for a given model id and barcode id
@@ -22,7 +22,7 @@ module Pass2U
 
       parse_response(response)
 
-    rescue Pass2U::ApiResponseError => ex
+    rescue Pass2u::ApiResponseError => ex
       raise ApiResponseError.new(
         "API responded with an error: #{ex.original_error.message}",
         ex
@@ -59,7 +59,7 @@ module Pass2U
     def parse_response(response)
       if response.code.to_i >= 300
         error_message = parse_error_message(response)
-        raise Pass2U::ApiResponseError.new(
+        raise Pass2u::ApiResponseError.new(
           "Unexpected response status: #{response.code},"\
           " message: #{error_message}",
           response

@@ -1,4 +1,4 @@
-module Pass2U
+module Pass2u
   class Error < StandardError; end
 
   class ApiResponseError < Error

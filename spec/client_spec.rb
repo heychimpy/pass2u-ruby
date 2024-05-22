@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'pass2u'
 require 'net/http'
 
-RSpec.describe Pass2U::Client do
+RSpec.describe Pass2u::Client do
 
   let(:api_key) { '123456789' }
   let(:base_uri) { 'https://api.pass2u.net/v2' }
@@ -17,7 +17,7 @@ RSpec.describe Pass2U::Client do
   let(:client) { described_class.new }
 
   before do
-    Pass2U.configure do |config|
+    Pass2u.configure do |config|
       config.api_key = api_key
       config.base_uri = base_uri
     end
@@ -112,7 +112,7 @@ RSpec.describe Pass2U::Client do
               'expirationDate' => '2024-12-31T23:00:15+02:00'
             )
           }.to raise_error(
-            Pass2U::ApiResponseError,
+            Pass2u::ApiResponseError,
             "API responded with an error: original error message"
           )
         end
@@ -136,7 +136,7 @@ RSpec.describe Pass2U::Client do
               model_id, barcode_id,
               'expirationDate' => '2024-12-31T23:00:15+02:00'
             )
-          }.to raise_error(Pass2U::ApiConnectionError)
+          }.to raise_error(Pass2u::ApiConnectionError)
         end
       end
     end

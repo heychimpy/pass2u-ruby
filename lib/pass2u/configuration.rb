@@ -1,4 +1,4 @@
-module Pass2U
+module Pass2u
   class Configuration
 
     attr_accessor :api_key, :base_uri
