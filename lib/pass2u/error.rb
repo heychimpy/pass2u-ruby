@@ -15,7 +15,7 @@ module Pass2u
 
     def initialize(message, original_error)
       super(message)
-      @original_errror = original_error
+      @original_error = original_error
     end
   end
 end
