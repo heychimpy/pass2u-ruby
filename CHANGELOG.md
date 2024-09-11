@@ -1,15 +1,16 @@
 # Changelog
 
-## 0.1.3
-- **Feature**: Added a code of conduct. 
-
 ## 0.1.2
-- **Bugfix**: Fixed connection original error, improving reliability. 
+- **Feature**: Added a code of conduct. 
+- **Feature**: Added Changelog
+
 
 ## 0.1.1
 - **Refactor**: Replaced "Pass2U" with "Pass2u" for better consistency. 
 - **Bugfix**: Fixed version number to ensure proper release management. 
 - **Bugfix**: Fixed comments for code clarity. 
+- **Bugfix**: Fixed connection original error, improving reliability. 
+
 
 ## 0.1.0
 - **Initial Release**: 
