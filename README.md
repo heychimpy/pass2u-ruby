@@ -1,7 +1,7 @@
 # pass2u-ruby
 
 [![Continuous Integration](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A Ruby interface for the Pass2u API, allowing the management of digital passes.
 
