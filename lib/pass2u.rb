@@ -10,4 +10,3 @@ module Pass2u
     yield(configuration)
   end
 end
-

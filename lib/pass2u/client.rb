@@ -4,7 +4,6 @@ require 'pass2u/error'
 
 module Pass2u
   class Client
-
     def initialize
       @base_uri = Pass2u.configuration.base_uri
       @api_key = Pass2u.configuration.api_key
@@ -22,16 +21,15 @@ module Pass2u
       response = make_request(uri, req)
 
       parse_response(response)
-
-    rescue Pass2u::ApiResponseError => ex
+    rescue Pass2u::ApiResponseError => e
       raise ApiResponseError.new(
-        "API responded with an error: #{ex.original_error.message}",
-        ex
+        "API responded with an error: #{e.original_error.message}",
+        e
       )
-    rescue => ex
+    rescue StandardError => e
       raise ApiConnectionError.new(
-        "Failed to connect to the API: #{ex.message}",
-        ex
+        "Failed to connect to the API: #{e.message}",
+        e
       )
     end
 
@@ -71,11 +69,9 @@ module Pass2u
 
     # Parse error message from the response
     def parse_error_message(response)
-      begin
-        JSON.parse(response.body)['errorMessage'] || response.body
-      rescue JSON::ParserError
-        response.body
-      end
+      JSON.parse(response.body)['errorMessage'] || response.body
+    rescue JSON::ParserError
+      response.body
     end
 
     # Prepare the content of the request body
@@ -83,7 +79,7 @@ module Pass2u
       { 'barcode' => {
         'message' => barcode_id,
         'altText' => barcode_id
-      }}.merge(options)
+      } }.merge(options)
     end
 
     # Set the headers of the HTTP requests
