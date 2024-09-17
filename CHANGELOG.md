@@ -5,6 +5,7 @@
 - **Feature**: Added a changelog.
 - **Check**: Added Rubocop.
 - **Check**: Added Reek.
+- **Check**: Added Brakeman
 
 
 ## 0.1.1
