@@ -2,7 +2,9 @@
 
 ## 0.1.2
 - **Feature**: Added a code of conduct. 
-- **Feature**: Added Changelog
+- **Feature**: Added a changelog.
+- **Check**: Added Rubocop.
+- **Check**: Added Reek.
 
 
 ## 0.1.1
