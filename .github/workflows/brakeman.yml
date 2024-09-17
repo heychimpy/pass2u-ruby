@@ -27,5 +27,5 @@ jobs:
       run: bundle install
 
     - name: Run Brakeman
-      run: bundle exec brakeman
+      run: bundle exec brakeman --force
 
