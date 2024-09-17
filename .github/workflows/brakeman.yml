@@ -1,0 +1,31 @@
+name: Brakeman
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  brakeman:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: [ '3.0', '3.2' ] 
+
+    steps:
+    - uses: actions/checkout@v4
+      name: Checkout code
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+
+    - name: Install dependencies
+      run: bundle install
+
+    - name: Run Brakeman
+      run: bundle exec brakeman
+

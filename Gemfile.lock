@@ -7,6 +7,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    brakeman (6.2.1)
+      racc
     diff-lcs (1.5.1)
     json (2.7.2)
     kwalify (0.7.2)
@@ -58,6 +60,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  brakeman (~> 6.2.1)
   bundler (>= 1.17, < 3.0)
   pass2u-ruby!
   reek (= 6.1.4)
