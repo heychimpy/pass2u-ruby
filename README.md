@@ -1,4 +1,5 @@
 # pass2u-ruby
+![Github Chimpy](https://github.com/user-attachments/assets/df1179f1-aa19-415e-aad8-e5037d060519)
 
 [![Continuous Integration](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
