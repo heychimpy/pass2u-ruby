@@ -10,6 +10,7 @@ GEM
     brakeman (6.2.1)
       racc
     diff-lcs (1.5.1)
+    docile (1.4.1)
     json (2.7.2)
     kwalify (0.7.2)
     language_server-protocol (3.17.0.3)
@@ -52,6 +53,15 @@ GEM
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
     ruby-progressbar (1.13.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-cobertura (2.1.0)
+      rexml
+      simplecov (~> 0.19)
+    simplecov-html (0.13.1)
+    simplecov_json_formatter (0.1.4)
     unicode-display_width (2.6.0)
 
 PLATFORMS
@@ -66,6 +76,8 @@ DEPENDENCIES
   reek (~> 6.1)
   rspec (~> 3.13)
   rubocop (~> 1.0)
+  simplecov
+  simplecov-cobertura
 
 BUNDLED WITH
    2.4.12
