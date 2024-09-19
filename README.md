@@ -6,6 +6,7 @@
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 ![Reek Badge](https://img.shields.io/badge/code%20quality-reek-brightgreen?style=flat-square)
 ![Brakeman Badge](https://img.shields.io/badge/security-brakeman-brightgreen?style=flat-square)
+[![codecov](https://codecov.io/gh/heychimpy/pass2u-ruby/graph/badge.svg?token=XRAVME65JL)](https://codecov.io/gh/heychimpy/pass2u-ruby)
 
 A Ruby interface for the Pass2u API, allowing the management of digital passes.
 
