@@ -2,11 +2,11 @@
 ![Github Chimpy](https://github.com/user-attachments/assets/df1179f1-aa19-415e-aad8-e5037d060519)
 
 [![Continuous Integration](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/heychimpy/pass2u-ruby/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/heychimpy/pass2u-ruby/graph/badge.svg?token=b6e1b9ae-6853-4f98-a65e-ca97fd9119b8)](https://codecov.io/gh/heychimpy/pass2u-ruby)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 ![Reek Badge](https://img.shields.io/badge/code%20quality-reek-brightgreen?style=flat-square)
 ![Brakeman Badge](https://img.shields.io/badge/security-brakeman-brightgreen?style=flat-square)
-[![codecov](https://codecov.io/gh/heychimpy/pass2u-ruby/graph/badge.svg?token=b6e1b9ae-6853-4f98-a65e-ca97fd9119b8)](https://codecov.io/gh/heychimpy/pass2u-ruby)
 
 A Ruby interface for the Pass2u API, allowing the management of digital passes.
 
