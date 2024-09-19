@@ -76,8 +76,8 @@ DEPENDENCIES
   reek (~> 6.1)
   rspec (~> 3.13)
   rubocop (~> 1.0)
-  simplecov
-  simplecov-cobertura
+  simplecov (~> 0.22)
+  simplecov-cobertura (~> 2.1)
 
 BUNDLED WITH
    2.4.12
