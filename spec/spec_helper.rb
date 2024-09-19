@@ -1,3 +1,9 @@
+require 'simplecov'
+require 'simplecov-cobertura'
+
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+SimpleCov.start
+
 require 'rspec'
 require 'json'
 require 'pass2u'
